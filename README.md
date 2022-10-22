@@ -85,13 +85,16 @@ Practice project for the JS239 take-home project assessment
   - [ ] If data is valid, we pass data to `Model` for async API call
   - [ ] When response received, pass new data to `View` to re-render contact list
 - [ ] Basic `Model` functionality
-  - [ ] Can fetch all contacts from API and return a JS object representing them to `Controller`
-  - [ ] Can return a single contact based on `id` and return a JS object representing this to `Controller`
+  - [x] Can fetch all contacts from API and return a JS object representing them to `Controller`
+  - [x] Can return a single contact based on `id` and return a JS object representing this to `Controller`
+  - [x] Filters contacts according to tag name
   - [ ] Can issue POST request to Contacts Manager API to add a new contact
     - Receives data as `FormData` object, serializes to JSON for API call
+  - [ ] Can issue PUSH request to API to update contact information
+  - [ ] Can issue DELETE request to API to remove a given contact based on id value
   - [ ] Handles any errors associated with any of the above requests
   - [ ] Returns data in the form of a JS object for `Controller`
 - [ ] Basic `View` functionality
-  - [ ] Can hide/display contacts list
+  - [x] Can hide/display contacts list
   - [x] Can hide/display add new contacts form
   - [ ] Can hide/display individual contact cards
