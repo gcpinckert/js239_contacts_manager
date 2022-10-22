@@ -39,6 +39,24 @@ class Model {
       return Promise.reject('Contact not found');
     }
   }
+
+  async addContact(data) {
+    let response = await fetch(`${API_BASE_URL}/contacts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      let data = await response.json();
+      this.processTags(data);
+      return data;
+    } else {
+      return Promise.reject('Cannot find contact');
+    }
+  }
 }
 
 export default Model;

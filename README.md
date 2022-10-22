@@ -75,25 +75,24 @@ Practice project for the JS239 take-home project assessment
 
 ## To Do
 
-- [ ] Basic Page Setup
+- [x] Basic Page Setup
   - [x] HTML sections for header (add new contact, search bar), contacts, footer (?)
-  - [ ] Handlebars template for contact cards
+  - [x] Handlebars template for contact cards
   - [x] Hidden add/update contact form (some HTML input validation here)
 - [ ] Basic `Controller` functionality
-  - [ ] When user clicks "Add new Contact", `View` displays the new contact form and hides contacts list
-  - [ ] When user submits new contact form, `Controller` collects and validates data
-  - [ ] If data is valid, we pass data to `Model` for async API call
-  - [ ] When response received, pass new data to `View` to re-render contact list
+  - [x] When user clicks "Add new Contact", `View` displays the new contact form and hides contacts list
+  - [x] When user submits new contact form, `Controller` collects and validates data
+  - [x] If data is valid, we pass data to `Model` for async API call
+  - [x] When response received, pass new data to `View` to re-render contact list
 - [ ] Basic `Model` functionality
   - [x] Can fetch all contacts from API and return a JS object representing them to `Controller`
   - [x] Can return a single contact based on `id` and return a JS object representing this to `Controller`
   - [x] Filters contacts according to tag name
-  - [ ] Can issue POST request to Contacts Manager API to add a new contact
-    - Receives data as `FormData` object, serializes to JSON for API call
+  - [x] Can issue POST request to Contacts Manager API to add a new contact
   - [ ] Can issue PUSH request to API to update contact information
   - [ ] Can issue DELETE request to API to remove a given contact based on id value
   - [ ] Handles any errors associated with any of the above requests
-  - [ ] Returns data in the form of a JS object for `Controller`
+  - [x] Returns data in the form of a JS object for `Controller`
 - [ ] Basic `View` functionality
   - [x] Can hide/display contacts list
   - [x] Can hide/display add new contacts form

@@ -12,6 +12,8 @@ class Controller {
     // add event listeners
     this.view.bindAddNewContactHandler(this.view.displayNewContactForm);
     this.view.bindCloseIconHandler(this.view.hideNewContactForm);
+    this.view.bindSubmitNewContactHandler(this.submitNewContactHandler.bind(this));
+    
   }
 
   renderAllContacts() {
@@ -21,6 +23,23 @@ class Controller {
       })
       .catch(error => {
         console.log(error);
+      });
+  }
+
+  submitNewContactHandler(formData) {
+    let data = {};
+    
+    for (let pair of formData.entries()) {
+      data[pair[0]] = pair[1];
+    }
+
+    this.model.addContact(data)
+      .then(data => {
+        this.view.addNewContactCard(data);
+        this.view.hideNewContactForm();
+      })
+      .catch(error => {
+        console.log(error)
       });
   }
 }

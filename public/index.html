@@ -59,11 +59,11 @@
           <h2>Create Contact</h2>
           <dl>
             <dt><label for="name">Name:</label></dt>
-            <dd><input type="text" id="name" max-length="300" min-length="3" required="required"></dd>
+            <dd><input type="text" id="name" name="full_name" max-length="300" min-length="3" required="required"></dd>
             <dt><label for="email">Email:</label></dt>
-            <dd><input type="email" id="email" required="required"></dd>
+            <dd><input type="email" id="email" name="email" required="required"></dd>
             <dt><label for="phone">Phone Number:</label></dt>
-            <dd><input type="tel" id="phone" pattern="^(\d{10}|\d{3}-\d{3}-\d{4}|\(\d{3}\)\d{3}-\d{4})$" required="required"></dd>
+            <dd><input type="tel" id="phone" name="phone_number" pattern="^(\d{10}|\d{3}-\d{3}-\d{4}|\(\d{3}\)\d{3}-\d{4})$" required="required"></dd>
           </dl>
           <input type="submit" value="Submit" class="btn raised">
         </fieldset>
