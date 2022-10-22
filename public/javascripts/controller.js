@@ -1,3 +1,5 @@
+'use strict';
+
 import View from './view.js';
 import Model from './model.js';
 
@@ -6,6 +8,10 @@ class Controller {
     this.model = model;
     this.view = view;
     this.renderAllContacts();
+
+    // add event listeners
+    this.view.bindAddNewContactHandler(this.view.displayNewContactForm);
+    this.view.bindCloseIconHandler(this.view.hideNewContactForm);
   }
 
   renderAllContacts() {
@@ -17,12 +23,6 @@ class Controller {
         console.log(error);
       });
   }
-
-  // filterContactsByTag() {
-  //   app.model.getContactsMatchingTag(tag)
-  //     .then(data => {app.view.displayContactsList(data)})
-  //     .catch(error => {console.log(error)});
-  // }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

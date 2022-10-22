@@ -1,9 +1,14 @@
+'use strict';
+
 class View {
 
   constructor() {
     this.contactsList = document.querySelector('section.contacts-list');
-    this.modalForm = document.querySelector('section.modal-form');
     this.contactTemplate = Handlebars.compile(document.querySelector('script[type="text/x-handlebars"]').innerHTML);
+
+    this.modalForm = document.querySelector('section.modal-form');
+    this.newContactBtn = document.querySelector('a.new-contact-btn');
+    this.closeIcon = document.querySelector('a.close-icon');
   }
 
   displayContactsList(contacts) {
@@ -12,20 +17,28 @@ class View {
     });
   }
 
-  displayNewContactForm() {
-    document.querySelector('a.new-contact-btn').addEventListener('click', event => {
+  bindAddNewContactHandler(handler) {
+    this.newContactBtn.addEventListener('click', event => {
       event.preventDefault();
-      this.contactsList.classList.add('hidden');
-      this.modalForm.classList.remove('hidden');
+      handler.call(this);
+    });
+  }
+
+  displayNewContactForm() {
+    this.contactsList.classList.add('hidden');
+    this.modalForm.classList.remove('hidden');
+  }
+
+  bindCloseIconHandler(handler) {
+    this.closeIcon.addEventListener('click', event => {
+      event.preventDefault();
+      handler.call(this);
     });
   }
 
   hideNewContactForm() {
-    document.querySelector('a.close-icon').addEventListener('click', event => {
-      event.preventDefault();
-      this.modalForm.classList.add('hidden');
-      this.contactsList.classList.remove('hidden');
-    });
+    this.modalForm.classList.add('hidden');
+    this.contactsList.classList.remove('hidden');
   }
 }
 
