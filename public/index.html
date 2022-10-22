@@ -17,12 +17,12 @@
     <header>
       <h1>Contacts Manager</h1>
       <nav>
-        <a href="#" class="new-contact-btn">Add New Contact</a>
-        <input type="text" id="search" placeholder="Search">
+        <a href="#" class="btn new-contact-btn raised">Add New Contact</a>
+        <input class="raised" type="text" id="search" placeholder="Search">
       </nav>
     </header>
     <section class="contacts-list">
-      <section class="contact-card">
+      <section class="contact card raised">
         <h1 class="name">Jane Doe</h1>
         <dl class="contact-details">
           <dt>Phone Number:</dt>
@@ -47,6 +47,26 @@
           </a>
         </div>
       </section>
+    </section>
+
+    <section class="modal-form hidden card raised">
+      <a href="#" class="close-icon">
+        <div class="close-icon"></div>
+      </a>
+      <form class="new-contact-form">
+        <fieldset>
+          <h2>Create Contact</h2>
+          <dl>
+            <dt><label for="name">Name:</label></dt>
+            <dd><input type="text" id="name" max-length="300" min-length="3" required="required"></dd>
+            <dt><label for="email">Email:</label></dt>
+            <dd><input type="email" id="email" required="required"></dd>
+            <dt><label for="phone">Phone Number:</label></dt>
+            <dd><input type="tel" id="phone" pattern="^(\d{10}|\d{3}-\d{3}-\d{4}|\(\d{3}\)\d{3}-\d{4})$" required="required"></dd>
+          </dl>
+          <input type="submit" value="Submit" class="btn raised">
+        </fieldset>
+      </form>
     </section>
   </body>
 </html>
