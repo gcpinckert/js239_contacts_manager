@@ -54,7 +54,19 @@ class Model {
       this.processTags(data);
       return data;
     } else {
-      return Promise.reject('Cannot find contact');
+      return Promise.reject('Something went wrong');
+    }
+  }
+
+  async deleteContact(id) {
+    let response = await fetch(`${API_BASE_URL}/contacts/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      return Promise.resolve(true);
+    } else {
+      return Promise.reject('Could not find contact');
     }
   }
 }

@@ -84,12 +84,13 @@ Practice project for the JS239 take-home project assessment
   - [x] When user submits new contact form, `Controller` collects and validates data
   - [x] If data is valid, we pass data to `Model` for async API call
   - [x] When response received, pass new data to `View` to re-render contact list
+  - [x] Handles `click` event on Delete Button
 - [ ] Basic `Model` functionality
   - [x] Can fetch all contacts from API and return a JS object representing them to `Controller`
   - [x] Can return a single contact based on `id` and return a JS object representing this to `Controller`
   - [x] Filters contacts according to tag name
   - [x] Can issue POST request to Contacts Manager API to add a new contact
-  - [ ] Can issue PUSH request to API to update contact information
+  - [x] Can issue PUSH request to API to update contact information
   - [ ] Can issue DELETE request to API to remove a given contact based on id value
   - [ ] Handles any errors associated with any of the above requests
   - [x] Returns data in the form of a JS object for `Controller`
@@ -97,3 +98,6 @@ Practice project for the JS239 take-home project assessment
   - [x] Can hide/display contacts list
   - [x] Can hide/display add new contacts form
   - [ ] Can hide/display individual contact cards
+  - [x] Interfaces with `controller` when user clicks Delete button
+  - [ ] Interfaces with `Controller` when user clicks Edit button
+  - [ ] Can hide/display Edit form

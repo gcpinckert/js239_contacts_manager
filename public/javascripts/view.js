@@ -58,6 +58,16 @@ class View {
       handler(formData);
     });
   }
+
+  bindDeleteBtnHandler(handler) {
+    this.contactsList.addEventListener('click', event => {
+      event.preventDefault();
+      let target = event.target;
+      if (target.classList.contains('delete-icon')) {
+        handler(event.target.getAttribute('data-id'));
+      }
+    });
+  }
 }
 
 export default View;

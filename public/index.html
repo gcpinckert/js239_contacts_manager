@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Contact Manager</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2
-?family=Quicksand">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand">
     <link rel="stylesheet" href="./stylesheets/reset.css">
     <link rel="stylesheet" href="./stylesheets/styles.css">
     <script src="/javascripts/jquery.js"></script>
@@ -29,11 +28,12 @@
           {{/if}}
         </ul>
         <div class="contact-btn-container">
-          <a href="#" class="edit-icon">
+          <a data-id={{id}} class="edit-icon">
             <img src="./images/icon_edit.png" alt="pencil"><p>Edit</p>
           </a>
-          <a href="#" class="delete-icon">
-            <img src="./images/icon_delete.png" alt="trash can"><p>Delete</p>
+          <a data-id="{{id}}" class="delete-icon">
+            <img src="./images/icon_delete.png" alt="trash can" class="delete-icon" data-id="{{id}}">
+            <p class="delete-icon" data-id="{{id}}">Delete</p>
           </a>
         </div>
       </section>

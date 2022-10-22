@@ -149,6 +149,11 @@ div.contact-btn-container a.delete-icon {
   right: 10px;
 }
 
+.edit-icon:hover,
+.delete-icon:hover {
+  cursor: pointer;
+}
+
 /*------------ Modal Form (Add/Edit Contacts) Styling ------------*/
 
 .modal-form {

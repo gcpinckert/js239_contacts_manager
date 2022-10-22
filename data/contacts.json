@@ -1,12 +1,5 @@
 [
   {
-    "id": 1,
-    "full_name": "Naveed Fida",
-    "email": "nf@example.com",
-    "phone_number": "12345678901",
-    "tags": "work,friend"
-  },
-  {
     "id": 2,
     "full_name": "Victor Reyes",
     "email": "vpr@example.com",
@@ -19,13 +12,6 @@
     "email": "ph@example.com",
     "phone_number": "54321098761",
     "tags": null
-  },
-  {
-    "full_name": "Test Person",
-    "phone_number": "555-867-5309",
-    "email": "me@example.com",
-    "tags": null,
-    "id": 4
   },
   {
     "full_name": "David Bowie",

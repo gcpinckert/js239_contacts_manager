@@ -42,9 +42,26 @@ class Controller {
         console.log(error)
       });
   }
+
+  deleteContactHandler(id) {
+    if (confirm('Are you sure you want to delete this contact?')) {
+      this.model.deleteContact(id)
+        .then(() => {
+          return this.model.getContactsList();
+        })
+        .then(contacts => {
+          this.view.clearContactsList();
+          this.view.displayContactsList(contacts);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    };
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Controller(new Model(), new View());
+  app.view.bindDeleteBtnHandler(app.deleteContactHandler.bind(app));
 
 });
