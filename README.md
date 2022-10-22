@@ -93,5 +93,5 @@ Practice project for the JS239 take-home project assessment
   - [ ] Returns data in the form of a JS object for `Controller`
 - [ ] Basic `View` functionality
   - [ ] Can hide/display contacts list
-  - [ ] Can hide/display add new contacts form
+  - [x] Can hide/display add new contacts form
   - [ ] Can hide/display individual contact cards
