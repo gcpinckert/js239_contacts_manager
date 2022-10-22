@@ -76,9 +76,9 @@ Practice project for the JS239 take-home project assessment
 ## To Do
 
 - [ ] Basic Page Setup
-  - [ ] HTML sections for header (add new contact, search bar), contacts, footer
+  - [x] HTML sections for header (add new contact, search bar), contacts, footer (?)
   - [ ] Handlebars template for contact cards
-  - [ ] Handlebars template for add/update contact form (some HTML input validation here)
+  - [ ] Hidden add/update contact form (some HTML input validation here)
 - [ ] Basic `Controller` functionality
   - [ ] When user clicks "Add new Contact", `View` displays the new contact form and hides contacts list
   - [ ] When user submits new contact form, `Controller` collects and validates data

@@ -1,0 +1,128 @@
+body {
+  background-image: url("../images/light_abstract_watercolor.png");
+  background-repeat: no-repeat;
+  background-color: #fff9f2;
+  color: #3F3F37;
+  font-family: Quicksand, Helvetica, Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  margin: 200px 100px 50px 100px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.new-contact-btn,
+#search,
+section.contact-card {
+  box-shadow: 10px 10px 17px 0px rgba(63, 63, 55, 0.75);
+    -webkit-box-shadow: 10px 10px 17px 0px rgba(63, 63, 55, 0.75);
+    -moz-box-shadow: 10px 10px 17px 0px rgba(63, 63, 55, 0.75);
+}
+
+.new-contact-btn {
+  padding: 10px 20px 10px 20px;
+  margin-right: 20px;
+  text-decoration: none;
+  background-color: #df9675;
+  color: #3F3F37;
+  border-radius: 10px;
+}
+
+#search {
+  margin-top: 20px;
+  padding: 7px 20px 7px 20px;
+  border: 2px solid #B5BAA3;
+  border-radius: 10px;
+  background-color: #fff9f2;
+}
+
+#search:focus {
+  outline: rgb(181, 186, 163, 0.5) solid 3px;
+}
+
+section.contacts-list {
+  margin: 0 100px 0 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+section.contact-card {
+  min-width: 250px;
+  max-width: 250px;
+  border: 3px solid #BBCBD2;
+  border-radius: 10px;
+  background-color: #df9675;
+}
+
+section.contact-card h1 {
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+ul.tags-list,
+dl.contact-details {
+  list-style: none;
+  margin: 0;
+  background-color: #fff9f2;
+}
+
+dl.contact-details {
+  padding: 16px 10px 16px 10px;
+}
+
+dl.contact-details dt {
+  font-weight: bold;
+}
+
+ul.tags-list {
+  padding: 0 0 0 10px;
+}
+
+ul.tags-list li {
+  display: inline-block;
+  background-color: #B5BAA3;
+  border-radius: 5px;
+  padding: 3px 4px 3px 4px;
+  margin-bottom: 5px;
+}
+
+div.contact-btn-container {
+  background-color: #fff9f2;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  padding: 20px;
+  position: relative;
+}
+
+div.contact-btn-container p {
+  display: inline-block;
+  color:#3F3F37;
+  margin-left: 5px;
+  vertical-align: top;
+}
+
+.edit-icon img,
+.delete-icon img {
+  width: 20px;
+  display: inline-block;
+}
+
+div.contact-btn-container a.edit-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+div.contact-btn-container a.delete-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
