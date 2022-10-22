@@ -12,32 +12,21 @@
     <script src="/javascripts/jquery.js"></script>
     <script src="/javascripts/handlebars.js"></script>
     <script type="module" src="./javascripts/controller.js"></script>
-  </head>
-
-  <body>
-    <header>
-      <h1>Contacts Manager</h1>
-      <nav>
-        <a href="#" class="btn new-contact-btn raised">Add New Contact</a>
-        <input class="raised" type="text" id="search" placeholder="Search">
-      </nav>
-    </header>
-    <section class="contacts-list">
-      <section class="contact card raised">
-        <h1 class="name">Jane Doe</h1>
+    <script type="text/x-handlebars">
+      <section class="contact card raised" id="{{id}}">
+        <h1 class="name">{{full_name}}</h1>
         <dl class="contact-details">
           <dt>Phone Number:</dt>
-          <dd>123-456-7890</dd>
+          <dd>{{phone_number}}</dd>
           <dt>Email:</dt>
-          <dd>jane@doe.com</dd>
+          <dd>{{email}}</dd>
         </dl>
         <ul class="tags-list">
-          <li class="tag">#friends</li>
-          <li class="tag">#family</li>
-          <li class="tag">#work</li>
-          <li class="tag">#someTag</li>
-          <li class="tag">#alien</li>
-          <li class="tag">#important</li>
+          {{#if tags}}
+          {{#each tags}}
+          <li class="tag">#{{this}}</li>
+          {{/each}}
+          {{/if}}
         </ul>
         <div class="contact-btn-container">
           <a href="#" class="edit-icon">
@@ -48,7 +37,18 @@
           </a>
         </div>
       </section>
-    </section>
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Contacts Manager</h1>
+      <nav>
+        <a href="#" class="btn new-contact-btn raised">Add New Contact</a>
+        <input class="raised" type="text" id="search" placeholder="Search">
+      </nav>
+    </header>
+    <section class="contacts-list"></section>
 
     <section class="modal-form hidden card raised">
       <a href="#" class="close-icon">

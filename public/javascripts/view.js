@@ -1,7 +1,14 @@
-let View = {
+const View = {
 
   contactsList: document.querySelector('section.contacts-list'),
   modalForm: document.querySelector('section.modal-form'),
+  contactTemplate: Handlebars.compile(document.querySelector('script[type="text/x-handlebars"]').innerHTML),
+
+  displayContactsList(contacts) {
+    contacts.forEach(contact => {
+      this.contactsList.innerHTML += this.contactTemplate(contact);
+    });
+  },
 
   displayNewContactForm() {
     document.querySelector('a.new-contact-btn').addEventListener('click', event => {
