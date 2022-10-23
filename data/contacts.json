@@ -16,8 +16,22 @@
   {
     "full_name": "David Bowie",
     "phone_number": "555-867-5309",
-    "email": "z@stardust.com",
+    "email": "ziggy@stardust.com",
     "tags": null,
     "id": 5
+  },
+  {
+    "full_name": "Elvis Presley",
+    "phone_number": "1234567890",
+    "email": "king@graceland.com",
+    "tags": null,
+    "id": 7
+  },
+  {
+    "full_name": "Queen Victoria",
+    "phone_number": "111-222-4433",
+    "email": "regina@uk.com",
+    "tags": null,
+    "id": 8
   }
 ]

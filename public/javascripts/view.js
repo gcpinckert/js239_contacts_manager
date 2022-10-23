@@ -10,6 +10,8 @@ class View {
     this.newContactBtn = document.querySelector('a.new-contact-btn');
     this.closeIcon = document.querySelector('a.close-icon');
     this.newContactForm = document.querySelector('form.new-contact-form');
+    this.newContactFormHeading = document.querySelector('form.new-contact-form h2');
+    this.newContactFormId = document.getElementById('id');
   }
 
   displayContactsList(contacts) {
@@ -27,6 +29,11 @@ class View {
     this.contactsList.innerHTML += this.contactTemplate(contact);
   }
 
+  updateContactCard(contact) {
+    let card = document.getElementById(`${contact.id}`);
+    card.outerHTML = this.contactTemplate(contact);
+  }
+
   bindAddNewContactHandler(handler) {
     this.newContactBtn.addEventListener('click', event => {
       event.preventDefault();
@@ -35,6 +42,7 @@ class View {
   }
 
   displayNewContactForm() {
+    this.newContactFormHeading.textContent = 'Create Contact';
     this.contactsList.classList.add('hidden');
     this.modalForm.classList.remove('hidden');
   }
@@ -47,6 +55,8 @@ class View {
   }
 
   hideNewContactForm() {
+    this.newContactForm.reset();
+    this.newContactFormId.value = '';
     this.modalForm.classList.add('hidden');
     this.contactsList.classList.remove('hidden');
   }
@@ -55,18 +65,37 @@ class View {
     this.newContactForm.addEventListener('submit', event => {
       event.preventDefault();
       let formData = new FormData(this.newContactForm);
-      handler(formData);
+      let editId = this.newContactFormId.value;
+      handler(formData, editId);
     });
   }
 
-  bindDeleteBtnHandler(handler) {
+  bindDeleteBtnEditBtnHandler(deleteHandler, editHandler) {
     this.contactsList.addEventListener('click', event => {
       event.preventDefault();
       let target = event.target;
       if (target.classList.contains('delete-icon')) {
-        handler(event.target.getAttribute('data-id'));
+        deleteHandler(event.target.getAttribute('data-id'));
+      } else if (target.classList.contains('edit-icon')) {
+        editHandler(event.target.getAttribute('data-id'));
       }
     });
+  }
+
+  displayEditContactForm(contact) {
+    this.newContactFormHeading.textContent = 'Edit Contact';
+    
+    let inputs = this.newContactForm.elements;
+
+    for (let i = 0; i < inputs.length; i += 1) {
+      let field = inputs[i];
+      if (Object.keys(contact).includes(field.name)) {
+        field.value = contact[field.name];
+      }
+    }
+
+    this.contactsList.classList.add('hidden');
+    this.modalForm.classList.remove('hidden');
   }
 }
 

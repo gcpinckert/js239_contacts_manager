@@ -66,7 +66,25 @@ class Model {
     if (response.ok) {
       return Promise.resolve(true);
     } else {
-      return Promise.reject('Could not find contact');
+      return Promise.reject('Contact not found');
+    }
+  }
+
+  async editContact(id, data) {
+    let response = await fetch(`${API_BASE_URL}/contacts/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      let data = await response.json();
+      this.processTags(data);
+      return data;
+    } else {
+      return Promise.reject('Contact not found');
     }
   }
 }
