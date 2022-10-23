@@ -10,9 +10,9 @@ class Controller {
     this.renderAllContacts();
 
     // add event listeners
-    this.view.bindAddNewContactHandler(this.view.displayNewContactForm);
-    this.view.bindCloseIconHandler(this.view.hideNewContactForm);
-    this.view.bindSubmitNewContactHandler(this.submitNewContactHandler.bind(this));
+    this.view.bindAddNewContactHandler(this.view.displayContactForm);
+    this.view.bindCloseIconHandler(this.view.hideContactForm);
+    this.view.bindSubmitContactHandler(this.submitContactHandler.bind(this));
     this.view.bindDeleteBtnEditBtnHandler(this.deleteContactHandler.bind(this), this.editContactFormHandler.bind(this));
     
   }
@@ -27,7 +27,7 @@ class Controller {
       });
   }
 
-  submitNewContactHandler(formData, editId) {
+  submitContactHandler(formData, editId) {
     let data = {};
     
     for (let pair of formData.entries()) {
@@ -38,7 +38,7 @@ class Controller {
       this.model.editContact(editId, data)
         .then(data => {
           this.view.updateContactCard(data);
-          this.view.hideNewContactForm();
+          this.view.hideContactForm();
         })
         .catch(error => {
           console.log(error);
@@ -47,7 +47,7 @@ class Controller {
       this.model.addContact(data)
         .then(data => {
           this.view.addNewContactCard(data);
-          this.view.hideNewContactForm();
+          this.view.hideContactForm();
         })
         .catch(error => {
           console.log(error)

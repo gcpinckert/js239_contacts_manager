@@ -9,9 +9,9 @@ class View {
     this.modalForm = document.querySelector('section.modal-form');
     this.newContactBtn = document.querySelector('a.new-contact-btn');
     this.closeIcon = document.querySelector('a.close-icon');
-    this.newContactForm = document.querySelector('form.new-contact-form');
-    this.newContactFormHeading = document.querySelector('form.new-contact-form h2');
-    this.newContactFormId = document.getElementById('id');
+    this.contactForm = document.querySelector('form.new-contact-form');
+    this.contactFormHeading = document.querySelector('form.new-contact-form h2');
+    this.contactFormId = document.getElementById('id');
   }
 
   displayContactsList(contacts) {
@@ -41,8 +41,8 @@ class View {
     });
   }
 
-  displayNewContactForm() {
-    this.newContactFormHeading.textContent = 'Create Contact';
+  displayContactForm() {
+    this.contactFormHeading.textContent = 'Create Contact';
     this.contactsList.classList.add('hidden');
     this.modalForm.classList.remove('hidden');
   }
@@ -54,18 +54,18 @@ class View {
     });
   }
 
-  hideNewContactForm() {
-    this.newContactForm.reset();
-    this.newContactFormId.value = '';
+  hideContactForm() {
+    this.contactForm.reset();
+    this.contactFormId.value = '';
     this.modalForm.classList.add('hidden');
     this.contactsList.classList.remove('hidden');
   }
 
-  bindSubmitNewContactHandler(handler) {
-    this.newContactForm.addEventListener('submit', event => {
+  bindSubmitContactHandler(handler) {
+    this.contactForm.addEventListener('submit', event => {
       event.preventDefault();
-      let formData = new FormData(this.newContactForm);
-      let editId = this.newContactFormId.value;
+      let formData = new FormData(this.contactForm);
+      let editId = this.contactFormId.value;
       handler(formData, editId);
     });
   }
@@ -83,9 +83,9 @@ class View {
   }
 
   displayEditContactForm(contact) {
-    this.newContactFormHeading.textContent = 'Edit Contact';
+    this.contactFormHeading.textContent = 'Edit Contact';
     
-    let inputs = this.newContactForm.elements;
+    let inputs = this.contactForm.elements;
 
     for (let i = 0; i < inputs.length; i += 1) {
       let field = inputs[i];
