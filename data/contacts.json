@@ -42,17 +42,10 @@
     "id": 9
   },
   {
-    "full_name": "Someone New",
-    "phone_number": "123-456-1111",
-    "email": "a@a.com",
-    "tags": "work",
-    "id": 11
-  },
-  {
     "full_name": "Alison Moyet",
     "phone_number": "444-444-4444",
     "email": "ali@yaz.com",
-    "tags": "singer,friend",
+    "tags": "singer",
     "id": 12
   }
 ]

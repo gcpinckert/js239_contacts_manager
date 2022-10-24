@@ -31,13 +31,7 @@ class Controller {
   }
 
   submitContactHandler(formData, editId) {
-    let data = {};
-    
-    for (let pair of formData.entries()) {
-      data[pair[0]] = pair[1];
-    }
-
-    data.tags = formData.getAll('tags') ? formData.getAll('tags').join(',') : null;
+    let data = this.processContactFormData(formData);
 
     if (editId) {
       this.model.editContact(editId, data)
@@ -58,6 +52,20 @@ class Controller {
           console.log(error)
         });
     }
+  }
+
+  processContactFormData(formData) {
+    let data = {};
+
+    for (let pair of formData.entries()) {
+      data[pair[0]] = pair [1];
+    }
+
+    let tags = formData.getAll('tags');
+
+    data.tags = tags.length === 0 ? null : tags.join(',');
+
+    return data;
   }
 
   deleteContactHandler(id) {

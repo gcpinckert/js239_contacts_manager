@@ -60,6 +60,13 @@ class View {
   displayEditContactForm(contact) {
     this.contactFormHeading.textContent = 'Edit Contact';
     
+    this.addContactDetailsToForm(contact);
+
+    this.contactsList.classList.add('hidden');
+    this.modalForm.classList.remove('hidden');
+  }
+
+  addContactDetailsToForm(contact) {
     let inputs = this.contactForm.elements;
 
     for (let i = 0; i < inputs.length; i += 1) {
@@ -69,8 +76,18 @@ class View {
       }
     }
 
-    this.contactsList.classList.add('hidden');
-    this.modalForm.classList.remove('hidden');
+    if (contact.tags) {
+      let selectTags = document.querySelector('select#tags');
+      let selectTagOptions = Array.from(selectTags.options);
+      selectTagOptions.splice(0, 1); // remove "Please select tags" option
+      selectTagOptions.splice(selectTagOptions.length - 1, 1); // remove "+ Add New Tag" option
+
+      selectTagOptions.forEach(tagOption => {
+        if (contact.tags.includes(tagOption.value)) {
+          tagOption.selected = true;
+        }
+      });
+    }
   }
 
   bindCloseIconHandler(handler) {

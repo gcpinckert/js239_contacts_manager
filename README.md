@@ -80,9 +80,6 @@ Practice project for the JS239 take-home project assessment
 - If we add a new tag, and then do not assign that tag to any contacts, it remains in the list of available tags to choose from. This is annoying, especially if the user makes a typo.
   - Fix idea 1: query the database for an updated list of all tags each time the form is rendered. This should be fairly simple to implement, but adds lag time to form display.
   - Fix idea 2: give user an option to remove tags from the select list. Cons: difficult to implement.
-- When user edits a contact and opens up edit form (by clicking on edit icon):
-  - If the contact in question has a single tag, it is pre-selected, and there is no way to de-select
-  - If the contact in question has multiple tags, no tags are pre-selected
 - There is a bit of a delay when user clicks edit button before edit form appears (because we are loading values in from the database. Maybe we cache/save values somewhere local instead, i.e. `data-` attributes on the contact card itself?)
 - *Not Tested*: if we have more than one row of tags for a contact card, the styling breaks.
 
@@ -111,3 +108,10 @@ Practice project for the JS239 take-home project assessment
     - Display a "Return to All Contacts" Button
     - Add a message saying "Displaying all {{tag}} contacts"?
     - Clicking the "Return to All Contacts" Button goes back to full view of all contacts
+- ~~The user can add a tag `+ Add a new tag`~~ Fixed
+- ~~When the user either adds or edits a contact with no tags, the tag value in the DB is set to `''` rather than `null`.~~ Fixed
+- ~~When user edits a contact and opens up edit form (by clicking on edit icon):~~ Fixed
+  - ~~If the contact in question has a single tag, it is pre-selected, and there is no way to de-select~~
+  - ~~If the contact in question has multiple tags, no tags are pre-selected~~
+  - Note: there are some interesting issues with the select field in general, but these seem to be endemic to the element used. Might be better in the future to go with a different approach (i.e. checkboxes or custom dropdown).
+
