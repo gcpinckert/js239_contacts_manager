@@ -13,6 +13,7 @@ class View {
     this.contactFormHeading = document.querySelector('form.new-contact-form h2');
     this.contactFormId = document.getElementById('id');
     this.contactFormTagsSelect = Handlebars.compile(document.getElementById('tags-template').innerHTML);
+    this.newTagsInput = document.getElementById('new-tags-input');
   }
 
   displayContactsList(contacts) {
@@ -79,7 +80,10 @@ class View {
   hideContactForm() {
     this.contactForm.reset();
     this.contactFormId.value = '';
+
     this.modalForm.classList.add('hidden');
+    this.newTagsInput.classList.add('super_hidden');
+
     this.contactsList.classList.remove('hidden');
   }
 
@@ -108,14 +112,13 @@ class View {
     document.getElementById('add-new-tag').addEventListener('click', event => {
       event.preventDefault();
 
-      document.getElementById('new-tags-input').classList.remove('super_hidden');
+      this.newTagsInput.classList.remove('super_hidden');
     });
   }
 
   bindAddNewTagHandler() {
     let addNewTagButton = document.querySelector('div#new-tags-input button');
     let addNewTagOption = document.getElementById('add-new-tag');
-    let newTagsInput = document.getElementById('new-tags-input');
     let newTagName = document.getElementById('new_tag');
     let tagsSelect = document.getElementById('tags');
 
@@ -128,7 +131,7 @@ class View {
       newTag.textContent = newTagName.value;
       tagsSelect.insertBefore(newTag, addNewTagOption);
 
-      newTagsInput.classList.add('super_hidden');
+      this.newTagsInput.classList.add('super_hidden');
       newTagName.value = '';
     });
   }

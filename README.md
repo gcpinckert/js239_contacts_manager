@@ -75,31 +75,28 @@ Practice project for the JS239 take-home project assessment
 
 ## To Do
 
-- [x] Basic Page Setup
-  - [x] HTML sections for header (add new contact, search bar), contacts, footer (?)
-  - [x] Handlebars template for contact cards
-  - [x] Hidden add/update contact form (some HTML input validation here)
-- [ ] Basic `Controller` functionality
-  - [x] When user clicks "Add new Contact", `View` displays the new contact form and hides contacts list
-  - [x] When user submits new contact form, `Controller` collects and validates data
-  - [x] If data is valid, we pass data to `Model` for async API call
-  - [x] When response received, pass new data to `View` to re-render contact list
-  - [x] Handles `click` event on Delete Button
-  - [x] Handles `click` event on Edit Button
-  - [x] Interfaces with `View` and `Model` to edit contact
-- [ ] Basic `Model` functionality
-  - [x] Can fetch all contacts from API and return a JS object representing them to `Controller`
-  - [x] Can return a single contact based on `id` and return a JS object representing this to `Controller`
-  - [x] Filters contacts according to tag name
-  - [x] Can issue POST request to Contacts Manager API to add a new contact
-  - [x] Can issue PUSH request to API to update contact information
-  - [x] Can issue DELETE request to API to remove a given contact based on id value
-  - [ ] Handles any errors associated with any of the above requests
-  - [x] Returns data in the form of a JS object for `Controller`
-- [ ] Basic `View` functionality
-  - [x] Can hide/display contacts list
-  - [x] Can hide/display add new contacts form
-  - [ ] Can hide/display individual contact cards
-  - [x] Interfaces with `controller` when user clicks Delete button
-  - [x] Interfaces with `Controller` when user clicks Edit button
-  - [x] Can hide/display Edit form
+## Known Bugs
+
+- If we add a new tag, and then do not assign that tag to any contacts, it remains in the list of available tags to choose from. This is annoying, especially if the user makes a typo.
+  - Fix idea 1: query the database for an updated list of all tags each time the form is rendered. This should be fairly simple to implement, but adds lag time to form display.
+  - Fix idea 2: give user an option to remove tags from the select list. Cons: difficult to implement.
+- There is a bit of a delay when user clicks edit button before edit form appears (because we are loading values in from the database. Maybe we cache/save values somewhere local instead, i.e. `data-` attributes on the contact card itself?)
+- *Not Tested*: if we have more than one row of tags for a contact card, the styling breaks.
+
+## General Refactoring
+
+- The `View` is getting unwieldy. Consider separating it out into segments (i.e. `ContactFormView`, `SearchView`, etc). Also: review naming conventions here
+- Review the following:
+  - `Controller.submitContactHandler`
+  - `View.bindAddNewTagHandler`
+- Refactor `controller.js` to take advantage of `async/await` keywords
+- In `Controller.deleteContactHandler` we clear and reload the entire contacts list when a contact is deleted. Maybe we implement a new method in `View` that can find and remove the single contact card in question instead?
+
+## Features to Implement
+
+- Clicking on a tag should filter the visible contact cards to include only those that contain the tag that was clicked
+  - Add a method in `View` that binds an event handler to contacts list that deals with `click` events on tag elements
+  - Add a method in `Controller` that handles the event:
+    - Gets the contacts that have matching tags (`Model.getContactsMatchingTag(tag)`)
+    - Clear out the current contacts list (`View.clearContactsList()`)
+    - Passes the contacts to `View.displayContactsList(contacts)`
