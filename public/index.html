@@ -24,7 +24,7 @@
         <ul class="tags-list">
           {{#if tags}}
           {{#each tags}}
-          <li class="tag">#{{this}}</li>
+          <li class="tag">{{this}}</li>
           {{/each}}
           {{/if}}
         </ul>
@@ -56,15 +56,22 @@
     <header>
       <h1>Contacts Manager</h1>
       <nav>
-        <a href="#" class="btn new-contact-btn raised">Add New Contact</a>
+        <a href="#" class="btn banner-btn raised">Add New Contact</a>
         <input class="raised" type="text" id="search" placeholder="Search">
       </nav>
     </header>
-    <section class="contacts-list"></section>
+
+    <main>
+    <section class="contacts-list flex-container"></section>
+    <div class="banner flex-container hidden">
+      <p id="banner-text"></p>
+      <a class="btn raised banner-btn">See All Contacts</a>
+    </div>
+    </main>
 
     <section class="modal-form hidden card raised">
       <a href="/contacts" class="close-icon">
-        <div class="close-icon"></div>
+        <div class="close-icon flex-container"></div>
       </a>
       <form class="new-contact-form">
         <fieldset>
@@ -81,9 +88,9 @@
             <dd id="select-tags"></dd>
             <div id="new-tags-input" class="super_hidden">
               <dd><label for="new_tag">Add a new tag:</label></dd>
-              <dt>
+              <dt class="flex-container">
                 <input type="text" id="new_tag" name="new_tag" pattern="^[a-zA-Z0-9]+$">
-                <button class="raised">Add</button>
+                <button class="raised btn inline-btn">Add</button>
               </dt>
             </div>
           </dl>

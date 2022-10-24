@@ -6,8 +6,11 @@ class View {
     this.contactsList = document.querySelector('section.contacts-list');
     this.contactTemplate = Handlebars.compile(document.getElementById('contact-card-template').innerHTML);
 
+    this.banner = document.querySelector('div.banner');
+    this.bannerText = document.querySelector('p#banner-text');
+
     this.modalForm = document.querySelector('section.modal-form');
-    this.newContactBtn = document.querySelector('a.new-contact-btn');
+    this.newContactBtn = document.querySelector('nav .banner-btn');
     this.closeIcon = document.querySelector('a.close-icon');
     this.contactForm = document.querySelector('form.new-contact-form');
     this.contactFormHeading = document.querySelector('form.new-contact-form h2');
@@ -134,6 +137,32 @@ class View {
       this.newTagsInput.classList.add('super_hidden');
       newTagName.value = '';
     });
+  }
+
+  bindFilterTagsHandler(handler) {
+    this.contactsList.addEventListener('click', event => {
+      if (event.target.tagName === 'LI' && event.target.classList.contains('tag')) {
+        handler(event.target.textContent);
+      }
+    });
+  }
+
+  displayBanner(text) {
+    this.bannerText.textContent = text;
+    this.banner.classList.remove('hidden');
+  }
+
+  hideBanner() {
+    this.banner.classList.add('hidden');
+  }
+
+  bindSeeAllContactsHandler(handler) {
+    document.querySelector('div.banner a').addEventListener('click', event => {
+      event.preventDefault();
+
+      this.hideBanner();
+      handler();
+    })
   }
 }
 

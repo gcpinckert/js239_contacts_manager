@@ -15,6 +15,8 @@ class Controller {
     this.view.bindCloseIconHandler(this.view.hideContactForm);
     this.view.bindSubmitContactHandler(this.submitContactHandler.bind(this));
     this.view.bindDeleteBtnEditBtnHandler(this.deleteContactHandler.bind(this), this.editContactFormHandler.bind(this));
+    this.view.bindFilterTagsHandler(this.filterContactsByTag.bind(this));
+    this.view.bindSeeAllContactsHandler(this.renderAllContacts.bind(this));
     
   }
 
@@ -90,6 +92,15 @@ class Controller {
         this.view.addContactFormTags(tags);
         this.view.bindShowNewTagInputHandler();
         this.view.bindAddNewTagHandler();
+      });
+  }
+
+  filterContactsByTag(tag) {
+    this.model.getContactsMatchingTag(tag)
+      .then(contacts => {
+        this.view.clearContactsList();
+        this.view.displayContactsList(contacts);
+        this.view.displayBanner(`Showing contacts with the tag ${tag}`);
       });
   }
 }

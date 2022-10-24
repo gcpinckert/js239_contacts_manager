@@ -32,7 +32,12 @@ input:focus {
 .btn {
   border: none;
   background-color: #df9675;
-  padding: 10px 20px 10px 20px;
+  border-radius: 10px;
+  padding: 0 7px 0 7px;
+}
+
+.btn:hover {
+  cursor: pointer;
 }
 
 .hidden {
@@ -59,11 +64,11 @@ header h1 {
   margin-bottom: 20px;
 }
 
-.new-contact-btn {
+.banner-btn {
   margin-right: 20px;
   text-decoration: none;
   color: #3F3F37;
-  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
 }
 
 #search {
@@ -71,11 +76,17 @@ header h1 {
   padding: 7px 20px 7px 20px;
 }
 
+.flex-container {
+  display: flex;
+}
+
 /*------------ Contact List and Contact Card Styling ------------*/
 
-section.contacts-list {
+main {
   margin: 0 100px 0 100px;
-  display: flex;
+}
+
+section.contacts-list {
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
@@ -119,6 +130,7 @@ ul.tags-list li {
   border-radius: 5px;
   padding: 3px 4px 3px 4px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 div.contact-btn-container {
@@ -159,6 +171,19 @@ div.contact-btn-container a.delete-icon {
   cursor: pointer;
 }
 
+/*------------ Search/Tag Message Banner and Button Styling ------------*/
+
+.banner.flex-container {
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+
+p#banner-text {
+  font-size: 1.5rem;
+}
+
 /*------------ Modal Form (Add/Edit Contacts) Styling ------------*/
 
 .modal-form {
@@ -189,7 +214,6 @@ div.close-icon {
   position: relative;
   height: 30px;
   width: 30px;
-  display: flex;
   flex-direction: column;
   justify-content: center;
 }
@@ -232,17 +256,16 @@ div.close-icon::after {
 
 .new-contact-form .btn {
   margin: 30px 0px 10px 0px;
-  cursor: pointer;
 }
 
 #new-tags-input dt {
-  display: flex;
   gap: 10px;
 }
 
-button {
-  background-color: #df9675;
-  border: none;
-  border-radius: 10px;
-  padding: 0 7px 0 7px;
+#add-new-tag {
+  cursor: pointer;
+}
+
+.new-contact-form .btn.inline-btn {
+  margin: 0;
 }
