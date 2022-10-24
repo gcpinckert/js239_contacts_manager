@@ -4,7 +4,7 @@ class View {
 
   constructor() {
     this.contactsList = document.querySelector('section.contacts-list');
-    this.contactTemplate = Handlebars.compile(document.querySelector('script[type="text/x-handlebars"]').innerHTML);
+    this.contactTemplate = Handlebars.compile(document.getElementById('contact-card-template').innerHTML);
 
     this.modalForm = document.querySelector('section.modal-form');
     this.newContactBtn = document.querySelector('a.new-contact-btn');
@@ -12,6 +12,7 @@ class View {
     this.contactForm = document.querySelector('form.new-contact-form');
     this.contactFormHeading = document.querySelector('form.new-contact-form h2');
     this.contactFormId = document.getElementById('id');
+    this.contactFormTagsSelect = Handlebars.compile(document.getElementById('tags-template').innerHTML);
   }
 
   displayContactsList(contacts) {
@@ -41,8 +42,29 @@ class View {
     });
   }
 
-  displayContactForm() {
+  addContactFormTags(tags) {
+    let tagsSelect = document.getElementById('select-tags');
+    tagsSelect.innerHTML = this.contactFormTagsSelect(tags);
+  }
+
+  displayNewContactForm() {
     this.contactFormHeading.textContent = 'Create Contact';
+    this.contactsList.classList.add('hidden');
+    this.modalForm.classList.remove('hidden');
+  }
+
+  displayEditContactForm(contact) {
+    this.contactFormHeading.textContent = 'Edit Contact';
+    
+    let inputs = this.contactForm.elements;
+
+    for (let i = 0; i < inputs.length; i += 1) {
+      let field = inputs[i];
+      if (Object.keys(contact).includes(field.name)) {
+        field.value = contact[field.name];
+      }
+    }
+
     this.contactsList.classList.add('hidden');
     this.modalForm.classList.remove('hidden');
   }
@@ -82,20 +104,33 @@ class View {
     });
   }
 
-  displayEditContactForm(contact) {
-    this.contactFormHeading.textContent = 'Edit Contact';
-    
-    let inputs = this.contactForm.elements;
+  bindShowNewTagInputHandler() {
+    document.getElementById('add-new-tag').addEventListener('click', event => {
+      event.preventDefault();
 
-    for (let i = 0; i < inputs.length; i += 1) {
-      let field = inputs[i];
-      if (Object.keys(contact).includes(field.name)) {
-        field.value = contact[field.name];
-      }
-    }
+      document.getElementById('new-tags-input').classList.remove('super_hidden');
+    });
+  }
 
-    this.contactsList.classList.add('hidden');
-    this.modalForm.classList.remove('hidden');
+  bindAddNewTagHandler() {
+    let addNewTagButton = document.querySelector('div#new-tags-input button');
+    let addNewTagOption = document.getElementById('add-new-tag');
+    let newTagsInput = document.getElementById('new-tags-input');
+    let newTagName = document.getElementById('new_tag');
+    let tagsSelect = document.getElementById('tags');
+
+    addNewTagButton.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      let newTag = document.createElement('option');
+      newTag.value = newTagName.value;
+      newTag.textContent = newTagName.value;
+      tagsSelect.insertBefore(newTag, addNewTagOption);
+
+      newTagsInput.classList.add('super_hidden');
+      newTagName.value = '';
+    });
   }
 }
 

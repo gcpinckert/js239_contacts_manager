@@ -11,7 +11,8 @@
     <script src="/javascripts/jquery.js"></script>
     <script src="/javascripts/handlebars.js"></script>
     <script type="module" src="./javascripts/controller.js"></script>
-    <script type="text/x-handlebars">
+
+    <script id="contact-card-template" type="text/x-handlebars">
       <section class="contact card raised" id="{{id}}">
         <h1 class="name">{{full_name}}</h1>
         <dl class="contact-details">
@@ -38,6 +39,16 @@
           </a>
         </div>
       </section>
+    </script>
+
+    <script id="tags-template" type="text/x-handlebars">
+      <select name="tags" id="tags" multiple>
+        <option value="" disabled>Please select tags</option>
+        {{#each tags}}
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}
+        <option id="add-new-tag">+ Add new tag</option>
+      </select>
     </script>
   </head>
 
@@ -66,6 +77,15 @@
             <dd><input type="email" id="email" name="email" required="required"></dd>
             <dt><label for="phone_number">Phone Number:</label></dt>
             <dd><input type="tel" id="phone_number" name="phone_number" pattern="^(\d{10}|\d{3}-\d{3}-\d{4}|\(\d{3}\)\d{3}-\d{4})$" required="required"></dd>
+            <dt><label for="tags">Tags:</label></dt>
+            <dd id="select-tags"></dd>
+            <div id="new-tags-input" class="super_hidden">
+              <dd><label for="new_tag">Add a new tag:</label></dd>
+              <dt>
+                <input type="text" id="new_tag" name="new_tag" pattern="^[a-zA-Z0-9]+$">
+                <button class="raised">Add</button>
+              </dt>
+            </div>
           </dl>
           <input type="submit" value="Submit" class="btn raised">
         </fieldset>

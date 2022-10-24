@@ -87,6 +87,18 @@ class Model {
       return Promise.reject('Contact not found');
     }
   }
+
+  async getAllTags() {
+    let contacts = await this.getContactsList();
+    let allTags = contacts
+      .map(contact => contact.tags)
+      .flat()
+      .filter((tag, i, tags) => {
+        let slice = tags.slice(i + 1, tags.length);
+        return (tag && !slice.includes(tag));
+      });
+    return { tags: allTags };
+  }
 }
 
 export default Model;

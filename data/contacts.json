@@ -1,5 +1,12 @@
 [
   {
+    "id": 1,
+    "full_name": "Naveed Fida",
+    "email": "nf@example.com",
+    "phone_number": "12345678901",
+    "tags": "work,friend"
+  },
+  {
     "id": 2,
     "full_name": "Victor Reyes",
     "email": "vpr@example.com",
@@ -17,28 +24,42 @@
     "full_name": "David Bowie",
     "phone_number": "555-867-5309",
     "email": "ziggy@stardust.com",
-    "tags": null,
+    "tags": "singer",
     "id": 5
   },
   {
     "full_name": "Queen Victoria",
     "phone_number": "111-222-4433",
     "email": "qv@uk.com",
-    "tags": null,
+    "tags": "friend",
     "id": 8
   },
   {
     "full_name": "Elivs Impersonator",
     "phone_number": "1234567891",
     "email": "notKing@graceland.com",
-    "tags": null,
+    "tags": "singer,friend",
     "id": 9
   },
   {
     "full_name": "Different",
     "phone_number": "5555555555",
     "email": "test@test.com",
-    "tags": null,
+    "tags": "work",
     "id": 10
+  },
+  {
+    "full_name": "Someone New",
+    "phone_number": "123-456-1111",
+    "email": "a@a.com",
+    "tags": "work",
+    "id": 11
+  },
+  {
+    "full_name": "Friend",
+    "phone_number": "123-456-8970",
+    "email": "hi@hi.com",
+    "tags": "friend",
+    "id": 12
   }
 ]

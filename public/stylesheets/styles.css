@@ -6,7 +6,8 @@ body {
   font-family: Quicksand, Helvetica, Arial, sans-serif;
 }
 
-input {
+input,
+select {
   border: 2px solid #B5BAA3;
   border-radius: 10px;
   background-color: #fff9f2;
@@ -40,6 +41,10 @@ input:focus {
 
 .show {
   visibility: visible;
+}
+
+.super_hidden {
+  display: none;
 }
 
 /*------------- Header Elements -------------*/
@@ -211,20 +216,33 @@ div.close-icon::after {
   margin: 10px 0px 10px 0px;
 }
 
-.modal-form input {
+.modal-form input,
+.modal-form select {
   width: 100%;
   padding: 7px 10px 7px 10px;
 }
 
-.modal-form input:invalid {
+/* .modal-form input:invalid {
   box-shadow: 0 0 5px 1px #df9675;
 }
 
 .modal-form input:invalid:focus {
   box-shadow: none;
-}
+} */
 
 .new-contact-form .btn {
   margin: 30px 0px 10px 0px;
   cursor: pointer;
+}
+
+#new-tags-input dt {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  background-color: #df9675;
+  border: none;
+  border-radius: 10px;
+  padding: 0 7px 0 7px;
 }

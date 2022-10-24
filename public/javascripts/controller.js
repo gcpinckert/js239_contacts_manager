@@ -8,9 +8,10 @@ class Controller {
     this.model = model;
     this.view = view;
     this.renderAllContacts();
+    this.renderContactFormTags();
 
     // add event listeners
-    this.view.bindAddNewContactHandler(this.view.displayContactForm);
+    this.view.bindAddNewContactHandler(this.view.displayNewContactForm);
     this.view.bindCloseIconHandler(this.view.hideContactForm);
     this.view.bindSubmitContactHandler(this.submitContactHandler.bind(this));
     this.view.bindDeleteBtnEditBtnHandler(this.deleteContactHandler.bind(this), this.editContactFormHandler.bind(this));
@@ -33,6 +34,8 @@ class Controller {
     for (let pair of formData.entries()) {
       data[pair[0]] = pair[1];
     }
+
+    data.tags = formData.getAll('tags') ? formData.getAll('tags').join(',') : null;
 
     if (editId) {
       this.model.editContact(editId, data)
@@ -78,6 +81,15 @@ class Controller {
       })
       .catch(error => {
         console.log(error);
+      });
+  }
+
+  renderContactFormTags() {
+    this.model.getAllTags()
+      .then(tags => {
+        this.view.addContactFormTags(tags);
+        this.view.bindShowNewTagInputHandler();
+        this.view.bindAddNewTagHandler();
       });
   }
 }
