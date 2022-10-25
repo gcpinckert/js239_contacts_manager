@@ -31,6 +31,11 @@ class View {
     card.outerHTML = this.contactTemplate(contact);
   }
 
+  removeContactCard(id) {
+    let card = document.getElementById(id);
+    card.remove();
+  }
+
   bindAddNewContactHandler(handler) {
     this.newContactBtn.addEventListener('click', event => {
       event.preventDefault();
@@ -43,9 +48,9 @@ class View {
       event.preventDefault();
       let target = event.target;
       if (target.classList.contains('delete-icon')) {
-        deleteHandler(event.target.getAttribute('data-id'));
+        deleteHandler(target.getAttribute('data-id'));
       } else if (target.classList.contains('edit-icon')) {
-        editHandler(event.target.getAttribute('data-id'));
+        editHandler(target.getAttribute('data-id'));
       }
     });
   }
@@ -86,16 +91,11 @@ class ModalFormView extends View {
     this.contactForm = document.querySelector('form.new-contact-form');
     this.contactFormHeading = document.querySelector('form.new-contact-form h2');
     this.contactFormId = document.getElementById('id');
-    this.contactFormTagsSelect = Handlebars.compile(document.getElementById('tags-template').innerHTML);
+    this.contactFormTagsSelectTemplate = Handlebars.compile(document.getElementById('tags-template').innerHTML);
     this.newTagsInput = document.getElementById('new-tags-input');
   }
 
-  addContactFormTags(tags) {
-    let tagsSelect = document.getElementById('select-tags');
-    tagsSelect.innerHTML = this.contactFormTagsSelect(tags);
-  }
-
-  displayNewContactForm() {
+  displayNewContactForm = () => {
     this.contactFormHeading.textContent = 'Create Contact';
     this.contactsList.classList.add('hidden');
     this.modalForm.classList.remove('hidden');
@@ -113,6 +113,7 @@ class ModalFormView extends View {
   addContactDetailsToForm(contact) {
     let inputs = this.contactForm.elements;
 
+    // add original contact details as values to form inputs
     for (let i = 0; i < inputs.length; i += 1) {
       let field = inputs[i];
       if (Object.keys(contact).includes(field.name)) {
@@ -142,14 +143,26 @@ class ModalFormView extends View {
     });
   }
 
-  hideContactForm() {
+  hideContactForm = () => {
     this.contactForm.reset();
     this.contactFormId.value = '';
+    this.removeTags();
 
     this.modalForm.classList.add('hidden');
     this.newTagsInput.classList.add('super_hidden');
 
     this.contactsList.classList.remove('hidden');
+  }
+
+  addContactFormTags = (tags) => {
+    this.tagsSelectContainer = document.getElementById('select-tags');
+    this.tagsSelectContainer.innerHTML = this.contactFormTagsSelectTemplate(tags);
+    this.bindShowNewTagInputHandler(this.showNewTagInput);
+    this.bindAddNewTagHandler(this.addNewTagToSelect);
+  }
+
+  removeTags = () => {
+    this.tagsSelectContainer.innerHTML = '';
   }
 
   bindSubmitContactHandler(handler) {
@@ -161,32 +174,43 @@ class ModalFormView extends View {
     });
   }
 
-  bindShowNewTagInputHandler() {
+  // this only works in Firefox :(
+  bindShowNewTagInputHandler(handler) {
     document.getElementById('add-new-tag').addEventListener('click', event => {
       event.preventDefault();
 
-      this.newTagsInput.classList.remove('super_hidden');
+      handler();
     });
   }
 
-  bindAddNewTagHandler() {
-    let addNewTagButton = document.querySelector('div#new-tags-input button');
-    let addNewTagOption = document.getElementById('add-new-tag');
-    let newTagName = document.getElementById('new_tag');
-    let tagsSelect = document.getElementById('tags');
+  showNewTagInput = () => {
+    this.newTagsInput.classList.remove('super_hidden');
+  }
 
-    addNewTagButton.addEventListener('click', event => {
+  bindAddNewTagHandler(handler) {
+    this.addNewTagButton = document.querySelector('div#new-tags-input button');
+
+    this.addNewTagButton.addEventListener('click', event => {
       event.preventDefault();
       event.stopPropagation();
 
-      let newTag = document.createElement('option');
-      newTag.value = newTagName.value;
-      newTag.textContent = newTagName.value;
-      tagsSelect.insertBefore(newTag, addNewTagOption);
-
-      this.newTagsInput.classList.add('super_hidden');
-      newTagName.value = '';
+      handler();
     });
+  }
+
+  addNewTagToSelect = () => {
+    let newTagName = document.getElementById('new_tag');
+    let tagsSelect = document.getElementById('tags');
+    let newTag = document.createElement('option');
+    let addNewTagOption = document.getElementById('add-new-tag');
+
+    newTag.value = newTagName.value;
+    newTag.textContent = newTagName.value;
+    newTag.selected = true;
+    tagsSelect.insertBefore(newTag, addNewTagOption);
+
+    this.newTagsInput.classList.add('super_hidden');
+    newTagName.value = '';
   }
 }
 

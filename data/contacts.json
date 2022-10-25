@@ -33,12 +33,5 @@
     "email": "regina@uk.com",
     "tags": "historicalPerson",
     "id": 5
-  },
-  {
-    "full_name": "Quiz",
-    "phone_number": "111-222-3344",
-    "email": "qz@q.com",
-    "tags": null,
-    "id": 6
   }
 ]

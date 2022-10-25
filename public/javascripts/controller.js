@@ -10,54 +10,42 @@ class Controller {
     this.view = view;
     this.modalFormView = modalFormView;
     this.searchView = searchView;
-    this.filterContactsBySearch = debounce(this.filterContactsBySearch.bind(this), 300);
+    this.filterContactsBySearch = debounce(this.filterContactsBySearch, 300);
     this.renderAllContacts();
-    this.renderContactFormTags();
 
     // add event listeners
-    this.view.bindAddNewContactHandler(this.modalFormView.displayNewContactForm.bind(this.modalFormView));
-    this.modalFormView.bindCloseIconHandler(this.modalFormView.hideContactForm.bind(this.modalFormView));
-    this.modalFormView.bindSubmitContactHandler(this.submitContactHandler.bind(this));
-    this.view.bindDeleteBtnEditBtnHandler(this.deleteContactHandler.bind(this), this.editContactFormHandler.bind(this));
-    this.view.bindFilterTagsHandler(this.filterContactsByTag.bind(this));
-    this.view.bindSeeAllContactsHandler(this.renderAllContacts.bind(this));
+    this.view.bindAddNewContactHandler(this.addNewContactHandler);
+    this.modalFormView.bindCloseIconHandler(this.modalFormView.hideContactForm);
+    this.modalFormView.bindSubmitContactHandler(this.submitContactHandler);
+    this.view.bindDeleteBtnEditBtnHandler(this.deleteContactHandler, this.editContactFormHandler);
+    this.view.bindFilterTagsHandler(this.filterContactsByTag);
+    this.view.bindSeeAllContactsHandler(this.renderAllContacts);
     this.searchView.bindSearchHandler(this.filterContactsBySearch);
-    
   }
 
-  renderAllContacts() {
-    this.model.getContactsList()
-      .then(data => {
-        this.view.displayContactsList(data);
-        this.searchView.clearSearchTerm();
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  renderAllContacts = async () => {
+    let contacts = await this.model.getContactsList();
+    this.view.displayContactsList(contacts);
+    this.searchView.clearSearchTerm();
   }
 
-  submitContactHandler(formData, editId) {
+  addNewContactHandler = async () => {
+    await this.addContactFormTags();
+    this.modalFormView.displayNewContactForm();
+  }
+
+  submitContactHandler = async (formData, editId) => {
     let data = this.processContactFormData(formData);
 
     if (editId) {
-      this.model.editContact(editId, data)
-        .then(data => {
-          this.view.updateContactCard(data);
-          this.modalFormView.hideContactForm();
-        })
-        .catch(error => {
-          console.log(error);
-        })
+      let updatedData = await this.model.editContact(editId, data);
+      this.view.updateContactCard(updatedData);
     } else {
-      this.model.addContact(data)
-        .then(data => {
-          this.view.addNewContactCard(data);
-          this.modalFormView.hideContactForm();
-        })
-        .catch(error => {
-          console.log(error)
-        });
+      let newData = await this.model.addContact(data);
+      this.view.addNewContactCard(newData); 
     }
+
+    this.modalFormView.hideContactForm();
   }
 
   processContactFormData(formData) {
@@ -74,59 +62,39 @@ class Controller {
     return data;
   }
 
-  deleteContactHandler(id) {
+  deleteContactHandler = async (id) => {
     if (confirm('Are you sure you want to delete this contact?')) {
-      this.model.deleteContact(id)
-        .then(() => {
-          return this.model.getContactsList();
-        })
-        .then(contacts => {
-          this.view.clearContactsList();
-          this.view.displayContactsList(contacts);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      await this.model.deleteContact(id);
+      this.view.removeContactCard(id);
     };
   }
 
-  editContactFormHandler(id) {
-    this.model.getContactById(id)
-      .then(data => {
-        this.modalFormView.displayEditContactForm(data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  editContactFormHandler = async (id) => {
+    await this.addContactFormTags();
+    let contactData = await this.model.getContactById(id);
+    this.modalFormView.displayEditContactForm(contactData);
   }
 
-  renderContactFormTags() {
-    this.model.getAllTags()
-      .then(tags => {
-        this.modalFormView.addContactFormTags(tags);
-        this.modalFormView.bindShowNewTagInputHandler();
-        this.modalFormView.bindAddNewTagHandler();
-      });
+  addContactFormTags = async () => {
+    let tags = await this.model.getAllTags();
+    this.modalFormView.addContactFormTags(tags);
+    
   }
 
-  filterContactsByTag(tag) {
-    this.model.getContactsMatchingTag(tag)
-      .then(contacts => {
-        this.view.clearContactsList();
-        this.view.displayContactsList(contacts);
-        this.view.displayBanner(`Showing contacts with the tag "${tag}"`);
-      });
+  filterContactsByTag = async (tag) => {
+    let filteredContacts = await this.model.getContactsMatchingTag(tag);
+    this.view.clearContactsList();
+    this.view.displayContactsList(filteredContacts);
+    this.view.displayBanner(`Showing contacts with the tag "${tag}"`);
   }
 
-  filterContactsBySearch(searchTerm) {
-    this.model.getContactsMatchingSearch(searchTerm)
-      .then(contacts => {
-        this.view.displayContactsList(contacts);
+  filterContactsBySearch = async (searchTerm) => {
+    let matchingContacts = await this.model.getContactsMatchingSearch(searchTerm);
+    this.view.displayContactsList(matchingContacts);
 
-        if (contacts.length === 0) {
-          this.view.displayBanner(`There are no contacts starting with "${searchTerm}"`);
-        }
-      })
+    if (matchingContacts.length === 0) {
+      this.view.displayBanner(`There are no contacts starting with "${searchTerm}"`);
+    }
   }
 }
 
