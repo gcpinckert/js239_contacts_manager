@@ -29,6 +29,15 @@ class Model {
     });
   }
 
+  async getContactsMatchingSearch(searchTerm) {
+    let contacts = await this.getContactsList();
+    let regex = new RegExp(`^${searchTerm}`, 'i');
+    return contacts.filter(contact => {
+      let names = contact.full_name.split(' ');
+      return names.some(name => regex.test(name));
+    });
+  }
+
   async getContactById(id) {
     let response = await fetch(`${API_BASE_URL}/contacts/${id}`);
     if (response.ok) {

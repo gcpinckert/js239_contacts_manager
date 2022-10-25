@@ -82,7 +82,6 @@ class ModalFormView extends View {
     super();
 
     this.modalForm = document.querySelector('section.modal-form');
-    this.newContactBtn = document.querySelector('nav .banner-btn');
     this.closeIcon = document.querySelector('a.close-icon');
     this.contactForm = document.querySelector('form.new-contact-form');
     this.contactFormHeading = document.querySelector('form.new-contact-form h2');
@@ -191,4 +190,27 @@ class ModalFormView extends View {
   }
 }
 
-export { View, ModalFormView};
+class SearchView extends View {
+  constructor() {
+    super();
+
+    this.search = document.getElementById('search');
+  }
+
+  bindSearchHandler(handler) {
+    this.search.addEventListener('input', event => {
+      // hide banner if user backspaces to no search term
+      if (this.search.value === '') {
+        this.hideBanner();
+      }
+
+      handler(this.search.value);
+    });
+  }
+
+  clearSearchTerm() {
+    this.search.value = '';
+  }
+}
+
+export { View, ModalFormView, SearchView};

@@ -1,13 +1,16 @@
 'use strict';
 
-import { View, ModalFormView } from './view.js';
+import { View, ModalFormView, SearchView } from './view.js';
 import Model from './model.js';
+import debounce from './debounce.js';
 
 class Controller {
-  constructor(model, view, modalFormView) {
+  constructor(model, view, modalFormView, searchView) {
     this.model = model;
     this.view = view;
     this.modalFormView = modalFormView;
+    this.searchView = searchView;
+    this.filterContactsBySearch = debounce(this.filterContactsBySearch.bind(this), 300);
     this.renderAllContacts();
     this.renderContactFormTags();
 
@@ -18,6 +21,7 @@ class Controller {
     this.view.bindDeleteBtnEditBtnHandler(this.deleteContactHandler.bind(this), this.editContactFormHandler.bind(this));
     this.view.bindFilterTagsHandler(this.filterContactsByTag.bind(this));
     this.view.bindSeeAllContactsHandler(this.renderAllContacts.bind(this));
+    this.searchView.bindSearchHandler(this.filterContactsBySearch);
     
   }
 
@@ -25,6 +29,7 @@ class Controller {
     this.model.getContactsList()
       .then(data => {
         this.view.displayContactsList(data);
+        this.searchView.clearSearchTerm();
       })
       .catch(error => {
         console.log(error);
@@ -112,8 +117,19 @@ class Controller {
         this.view.displayBanner(`Showing contacts with the tag "${tag}"`);
       });
   }
+
+  filterContactsBySearch(searchTerm) {
+    this.model.getContactsMatchingSearch(searchTerm)
+      .then(contacts => {
+        this.view.displayContactsList(contacts);
+
+        if (contacts.length === 0) {
+          this.view.displayBanner(`There are no contacts starting with "${searchTerm}"`);
+        }
+      })
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new Controller(new Model(), new View(), new ModalFormView());
+  const app = new Controller(new Model(), new View(), new ModalFormView(), new SearchView());
 });

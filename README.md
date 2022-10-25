@@ -77,6 +77,8 @@ Practice project for the JS239 take-home project assessment
 
 ### Known Bugs
 
+- The Add a Tag event handler doesn't work in Chrome! 
+  - Fix idea: delegate the event by registering on select and checking to see if target id matches option element?
 - If we add a new tag, and then do not assign that tag to any contacts, it remains in the list of available tags to choose from. This is annoying, especially if the user makes a typo.
   - Fix idea 1: query the database for an updated list of all tags each time the form is rendered. This should be fairly simple to implement, but adds lag time to form display.
   - Fix idea 2: give user an option to remove tags from the select list. Cons: difficult to implement.
