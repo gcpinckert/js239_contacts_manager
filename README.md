@@ -80,7 +80,7 @@ Practice project for the JS239 take-home project assessment
 - If we add a new tag, and then do not assign that tag to any contacts, it remains in the list of available tags to choose from. This is annoying, especially if the user makes a typo.
   - Fix idea 1: query the database for an updated list of all tags each time the form is rendered. This should be fairly simple to implement, but adds lag time to form display.
   - Fix idea 2: give user an option to remove tags from the select list. Cons: difficult to implement.
-- There is a bit of a delay when user clicks edit button before edit form appears (because we are loading values in from the database. Maybe we cache/save values somewhere local instead, i.e. `data-` attributes on the contact card itself?)
+- There is a bit of a delay when user clicks edit button before edit form appears (because we are loading values in from the database.
 - *Not Tested*: if we have more than one row of tags for a contact card, the styling breaks.
 
 ### General Refactoring

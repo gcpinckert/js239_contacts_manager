@@ -5,18 +5,10 @@ class View {
   constructor() {
     this.contactsList = document.querySelector('section.contacts-list');
     this.contactTemplate = Handlebars.compile(document.getElementById('contact-card-template').innerHTML);
+    this.newContactBtn = document.querySelector('nav .banner-btn');
 
     this.banner = document.querySelector('div.banner');
     this.bannerText = document.querySelector('p#banner-text');
-
-    this.modalForm = document.querySelector('section.modal-form');
-    this.newContactBtn = document.querySelector('nav .banner-btn');
-    this.closeIcon = document.querySelector('a.close-icon');
-    this.contactForm = document.querySelector('form.new-contact-form');
-    this.contactFormHeading = document.querySelector('form.new-contact-form h2');
-    this.contactFormId = document.getElementById('id');
-    this.contactFormTagsSelect = Handlebars.compile(document.getElementById('tags-template').innerHTML);
-    this.newTagsInput = document.getElementById('new-tags-input');
   }
 
   displayContactsList(contacts) {
@@ -42,8 +34,61 @@ class View {
   bindAddNewContactHandler(handler) {
     this.newContactBtn.addEventListener('click', event => {
       event.preventDefault();
-      handler.call(this);
+      handler();
     });
+  }
+
+  bindDeleteBtnEditBtnHandler(deleteHandler, editHandler) {
+    this.contactsList.addEventListener('click', event => {
+      event.preventDefault();
+      let target = event.target;
+      if (target.classList.contains('delete-icon')) {
+        deleteHandler(event.target.getAttribute('data-id'));
+      } else if (target.classList.contains('edit-icon')) {
+        editHandler(event.target.getAttribute('data-id'));
+      }
+    });
+  }
+
+  bindFilterTagsHandler(handler) {
+    this.contactsList.addEventListener('click', event => {
+      if (event.target.tagName === 'LI' && event.target.classList.contains('tag')) {
+        handler(event.target.textContent);
+      }
+    });
+  }
+
+  displayBanner(text) {
+    this.bannerText.textContent = text;
+    this.banner.classList.remove('hidden');
+  }
+
+  hideBanner() {
+    this.banner.classList.add('hidden');
+  }
+
+  bindSeeAllContactsHandler(handler) {
+    document.querySelector('div.banner a').addEventListener('click', event => {
+      event.preventDefault();
+
+      this.hideBanner();
+      handler();
+    })
+  }
+}
+
+class ModalFormView extends View {
+  constructor() {
+    super();
+
+    this.modalForm = document.querySelector('section.modal-form');
+    this.newContactBtn = document.querySelector('nav .banner-btn');
+    this.closeIcon = document.querySelector('a.close-icon');
+    this.contactForm = document.querySelector('form.new-contact-form');
+    this.contactFormHeading = document.querySelector('form.new-contact-form h2');
+    this.contactFormId = document.getElementById('id');
+    this.contactFormTagsSelect = Handlebars.compile(document.getElementById('tags-template').innerHTML);
+    this.newTagsInput = document.getElementById('new-tags-input');
   }
 
   addContactFormTags(tags) {
@@ -76,6 +121,7 @@ class View {
       }
     }
 
+    // pre-select multiple tags, if any
     if (contact.tags) {
       let selectTags = document.querySelector('select#tags');
       let selectTagOptions = Array.from(selectTags.options);
@@ -93,7 +139,7 @@ class View {
   bindCloseIconHandler(handler) {
     this.closeIcon.addEventListener('click', event => {
       event.preventDefault();
-      handler.call(this);
+      handler();
     });
   }
 
@@ -113,18 +159,6 @@ class View {
       let formData = new FormData(this.contactForm);
       let editId = this.contactFormId.value;
       handler(formData, editId);
-    });
-  }
-
-  bindDeleteBtnEditBtnHandler(deleteHandler, editHandler) {
-    this.contactsList.addEventListener('click', event => {
-      event.preventDefault();
-      let target = event.target;
-      if (target.classList.contains('delete-icon')) {
-        deleteHandler(event.target.getAttribute('data-id'));
-      } else if (target.classList.contains('edit-icon')) {
-        editHandler(event.target.getAttribute('data-id'));
-      }
     });
   }
 
@@ -155,32 +189,6 @@ class View {
       newTagName.value = '';
     });
   }
-
-  bindFilterTagsHandler(handler) {
-    this.contactsList.addEventListener('click', event => {
-      if (event.target.tagName === 'LI' && event.target.classList.contains('tag')) {
-        handler(event.target.textContent);
-      }
-    });
-  }
-
-  displayBanner(text) {
-    this.bannerText.textContent = text;
-    this.banner.classList.remove('hidden');
-  }
-
-  hideBanner() {
-    this.banner.classList.add('hidden');
-  }
-
-  bindSeeAllContactsHandler(handler) {
-    document.querySelector('div.banner a').addEventListener('click', event => {
-      event.preventDefault();
-
-      this.hideBanner();
-      handler();
-    })
-  }
 }
 
-export default View;
+export { View, ModalFormView};

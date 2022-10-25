@@ -21,31 +21,17 @@
     "tags": null
   },
   {
-    "full_name": "David Bowie",
-    "phone_number": "555-867-5309",
-    "email": "ziggy@stardust.com",
-    "tags": "singer",
-    "id": 5
+    "full_name": "Elvis",
+    "phone_number": "111-222-3344",
+    "email": "king@graceland.com",
+    "tags": "singer,historicalPerson",
+    "id": 4
   },
   {
     "full_name": "Queen Victoria",
-    "phone_number": "111-222-4433",
-    "email": "qv@uk.com",
-    "tags": "friend",
-    "id": 8
-  },
-  {
-    "full_name": "Elivs Impersonator",
-    "phone_number": "1234567891",
-    "email": "notKing@graceland.com",
-    "tags": "singer,friend",
-    "id": 9
-  },
-  {
-    "full_name": "Alison Moyet",
-    "phone_number": "444-444-4444",
-    "email": "ali@yaz.com",
-    "tags": "singer",
-    "id": 12
+    "phone_number": "123-456-1111",
+    "email": "regina@uk.com",
+    "tags": "historicalPerson",
+    "id": 5
   }
 ]

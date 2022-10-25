@@ -1,19 +1,20 @@
 'use strict';
 
-import View from './view.js';
+import { View, ModalFormView } from './view.js';
 import Model from './model.js';
 
 class Controller {
-  constructor(model, view) {
+  constructor(model, view, modalFormView) {
     this.model = model;
     this.view = view;
+    this.modalFormView = modalFormView;
     this.renderAllContacts();
     this.renderContactFormTags();
 
     // add event listeners
-    this.view.bindAddNewContactHandler(this.view.displayNewContactForm);
-    this.view.bindCloseIconHandler(this.view.hideContactForm);
-    this.view.bindSubmitContactHandler(this.submitContactHandler.bind(this));
+    this.view.bindAddNewContactHandler(this.modalFormView.displayNewContactForm.bind(this.modalFormView));
+    this.modalFormView.bindCloseIconHandler(this.modalFormView.hideContactForm.bind(this.modalFormView));
+    this.modalFormView.bindSubmitContactHandler(this.submitContactHandler.bind(this));
     this.view.bindDeleteBtnEditBtnHandler(this.deleteContactHandler.bind(this), this.editContactFormHandler.bind(this));
     this.view.bindFilterTagsHandler(this.filterContactsByTag.bind(this));
     this.view.bindSeeAllContactsHandler(this.renderAllContacts.bind(this));
@@ -37,7 +38,7 @@ class Controller {
       this.model.editContact(editId, data)
         .then(data => {
           this.view.updateContactCard(data);
-          this.view.hideContactForm();
+          this.modalFormView.hideContactForm();
         })
         .catch(error => {
           console.log(error);
@@ -46,7 +47,7 @@ class Controller {
       this.model.addContact(data)
         .then(data => {
           this.view.addNewContactCard(data);
-          this.view.hideContactForm();
+          this.modalFormView.hideContactForm();
         })
         .catch(error => {
           console.log(error)
@@ -87,7 +88,7 @@ class Controller {
   editContactFormHandler(id) {
     this.model.getContactById(id)
       .then(data => {
-        this.view.displayEditContactForm(data);
+        this.modalFormView.displayEditContactForm(data);
       })
       .catch(error => {
         console.log(error);
@@ -97,9 +98,9 @@ class Controller {
   renderContactFormTags() {
     this.model.getAllTags()
       .then(tags => {
-        this.view.addContactFormTags(tags);
-        this.view.bindShowNewTagInputHandler();
-        this.view.bindAddNewTagHandler();
+        this.modalFormView.addContactFormTags(tags);
+        this.modalFormView.bindShowNewTagInputHandler();
+        this.modalFormView.bindAddNewTagHandler();
       });
   }
 
@@ -108,11 +109,11 @@ class Controller {
       .then(contacts => {
         this.view.clearContactsList();
         this.view.displayContactsList(contacts);
-        this.view.displayBanner(`Showing contacts with the tag ${tag}`);
+        this.view.displayBanner(`Showing contacts with the tag "${tag}"`);
       });
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new Controller(new Model(), new View());
+  const app = new Controller(new Model(), new View(), new ModalFormView());
 });
