@@ -95,13 +95,17 @@ section.contacts-list {
 section.contact {
   min-width: 250px;
   max-width: 250px;
-  background-color: #df9675;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 section.contact h1 {
   font-weight: bold;
   font-size: 1.5rem;
   text-align: center;
+  background-color: #df9675;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
 }
 
 ul.tags-list,
@@ -121,7 +125,6 @@ dl.contact-details dt {
 
 ul.tags-list {
   padding: 0 0 0 10px;
-  height: 35px;
 }
 
 ul.tags-list li {

@@ -83,7 +83,6 @@ Practice project for the JS239 take-home project assessment
   - Fix idea 1: query the database for an updated list of all tags each time the form is rendered. This should be fairly simple to implement, but adds lag time to form display.
   - Fix idea 2: give user an option to remove tags from the select list. Cons: difficult to implement.
 - There is a bit of a delay when user clicks edit button before edit form appears (because we are loading values in from the database.
-- *Not Tested*: if we have more than one row of tags for a contact card, the styling breaks.
 
 ### General Refactoring
 
@@ -116,4 +115,4 @@ Practice project for the JS239 take-home project assessment
   - ~~If the contact in question has a single tag, it is pre-selected, and there is no way to de-select~~
   - ~~If the contact in question has multiple tags, no tags are pre-selected~~
   - Note: there are some interesting issues with the select field in general, but these seem to be endemic to the element used. Might be better in the future to go with a different approach (i.e. checkboxes or custom dropdown).
-
+- ~~If we add more than two rows of tags, the second and third rows do not appear (because height is fixed)~~ Fixed
