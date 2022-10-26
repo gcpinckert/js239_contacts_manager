@@ -11,9 +11,12 @@ class Controller {
     this.modalFormView = modalFormView;
     this.searchView = searchView;
     this.filterContactsBySearch = debounce(this.filterContactsBySearch, 300);
-    this.renderAllContacts();
 
-    // add event listeners
+    this.renderAllContacts();
+    this.bind();
+  }
+
+  bind() {
     this.view.bindAddNewContactHandler(this.addNewContactHandler);
     this.modalFormView.bindCloseIconHandler(this.modalFormView.hideContactForm);
     this.modalFormView.bindSubmitContactHandler(this.submitContactHandler);
@@ -22,6 +25,7 @@ class Controller {
     this.view.bindSeeAllContactsHandler(this.renderAllContacts);
     this.searchView.bindSearchHandler(this.filterContactsBySearch);
     this.modalFormView.bindCreateNewTagHandler(this.modalFormView.createNewTagHandler);
+    this.modalFormView.bindEscKeyHandler();
   }
 
   renderAllContacts = async () => {
@@ -43,6 +47,10 @@ class Controller {
   submitContactHandler = async (formData, editId) => {
     let data = this.processContactFormData(formData);
 
+    if (!this.validateFormData(data)) {
+      return;
+    };
+
     if (editId) {
       let updatedData = await this.model.editContact(editId, data);
       this.view.updateContactCard(updatedData);
@@ -61,8 +69,23 @@ class Controller {
       data[pair[0]] = pair [1];
     }
 
-    data.tags = data.tags.slice(0, data.tags.length - 1);
+    // get rid of trailing comma for tags string or coerce to null if no tags
+    if (data.tags) {
+      data.tags = data.tags.slice(0, data.tags.length - 1);
+    } else {
+      data.tags = null;
+    }
+    console.log(data);
     return data;
+  }
+
+  validateFormData(data) {
+    if (data.full_name.trim().length === 0) {
+      this.modalFormView.displayNotification('Name cannot contain only whitespace');
+      return false;
+    } else {
+      return true;
+    }
   }
 
   deleteContactHandler = async (id) => {
@@ -108,6 +131,4 @@ class Controller {
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Controller(new Model(), new View(), new ModalFormView(), new SearchView());
-
-  app.modalFormView.bindEscKeyHandler();
 });

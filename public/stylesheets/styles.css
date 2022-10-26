@@ -195,7 +195,17 @@ div.contact-btn-container a.delete-icon {
 }
 
 /*------------ Modal Form (Add/Edit Contacts) Styling ------------*/
+.notification {
+  background-color: #BBCBD2;
+  padding: 5px;
+  margin: 10px 0px;
+  border-radius: 10px;
+  text-align: center;
+}
 
+.tip {
+  font-size: 0.75rem;
+}
 .modal-form {
   position: fixed;
   top: 392px;

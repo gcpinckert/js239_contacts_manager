@@ -77,8 +77,6 @@ Practice project for the JS239 take-home project assessment
 
 ### Known Bugs
 
-- The Add a Tag event handler doesn't work in Chrome!
-  - Fix idea: ?? Seems that chromium browsers do not fire events on `option` elements. Moving the event listener to an outer element (i.e. the `select`) and filtering via the target breaks behavior in BOTH browsers.
 - There is a often a bt of a delay based on how often we are querying the database
 
 ### Done
@@ -101,3 +99,5 @@ Practice project for the JS239 take-home project assessment
   - Note: there are some interesting issues with the select field in general, but these seem to be endemic to the element used. Might be better in the future to go with a different approach (i.e. checkboxes or custom dropdown).
 - ~~If we add more than two rows of tags, the second and third rows do not appear (because height is fixed)~~ Fixed
 - ~~If we add a new tag, and then do not assign that tag to any contacts, it remains in the list of available tags to choose from. This is annoying, especially if the user makes a typo.~~ Fixed!
+- ~~The Add a Tag event handler doesn't work in Chrome!~~
+  - ~~Fix idea: ?? Seems that chromium browsers do not fire events on `option` elements. Moving the event listener to an outer element (i.e. the `select`) and filtering via the target breaks behavior in BOTH browsers.~~ Fixed!

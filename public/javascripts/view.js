@@ -104,6 +104,7 @@ class ModalFormView extends View {
 
     this.modalForm = document.querySelector('section.modal-form');
     this.closeIcon = document.querySelector('a.close-icon');
+    this.notification = document.createElement('p');
     this.contactForm = document.querySelector('form.new-contact-form');
     this.contactFormHeading = document.querySelector('form.new-contact-form h2');
     this.contactFormId = document.getElementById('id');
@@ -156,6 +157,7 @@ class ModalFormView extends View {
     this.contactForm.reset();
     this.contactFormId.value = '';
     this.removeTags();
+    this.removeNotification();
 
     this.modalForm.classList.add('hidden');
     this.newTagsInput.classList.add('super_hidden');
@@ -240,17 +242,26 @@ class ModalFormView extends View {
   }
 
   createNewTagHandler = () => {
+    this.removeNotification();
     let newTagInput = document.getElementById('new_tag');
     let tagsInput = document.getElementById('tags');
     let tagsList = document.querySelector('ul.tag-options');
     let newTag = document.createElement('li');
 
-    newTag.textContent = newTagInput.value;
-    tagsInput.value += `${newTagInput.value},`;
-    tagsList.insertBefore(newTag, document.getElementById('add-new-tag'));
+    if (this.validTag(newTagInput.value)) {
+      newTag.textContent = newTagInput.value;
+      tagsInput.value += `${newTagInput.value},`;
+      tagsList.insertBefore(newTag, document.getElementById('add-new-tag'));
 
-    this.newTagsInput.classList.add('super_hidden');
-    newTagInput.value = '';
+      this.newTagsInput.classList.add('super_hidden');
+      newTagInput.value = '';
+    } else {
+      this.displayNotification('Tags can only contain alphabetical characters')
+    }
+  }
+
+  validTag(tag) {
+    return /^[a-z]+$/i.test(tag);
   }
 
   clearTagsHandler = () => {
@@ -263,6 +274,16 @@ class ModalFormView extends View {
         this.hideContactForm();
       }
     });
+  }
+
+  displayNotification(message) {
+    this.notification.textContent = message;
+    this.notification.classList.add('notification');
+    document.querySelector('form fieldset').insertAdjacentElement('afterbegin', this.notification);
+  }
+
+  removeNotification() {
+    this.notification.remove();
   }
 }
 
