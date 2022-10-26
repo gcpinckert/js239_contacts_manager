@@ -21,12 +21,18 @@ class Controller {
     this.view.bindFilterTagsHandler(this.filterContactsByTag);
     this.view.bindSeeAllContactsHandler(this.renderAllContacts);
     this.searchView.bindSearchHandler(this.filterContactsBySearch);
+    this.modalFormView.bindCreateNewTagHandler(this.modalFormView.createNewTagHandler);
   }
 
   renderAllContacts = async () => {
     let contacts = await this.model.getContactsList();
     this.view.displayContactsList(contacts);
     this.searchView.clearSearchTerm();
+    if (contacts.length === 0) {
+      this.view.displayBanner({
+        message: 'There are no contacts. Would you like to add one?'
+      });
+    }
   }
 
   addNewContactHandler = async () => {
@@ -55,10 +61,7 @@ class Controller {
       data[pair[0]] = pair [1];
     }
 
-    let tags = formData.getAll('tags');
-
-    data.tags = tags.length === 0 ? null : tags.join(',');
-
+    data.tags = data.tags.slice(0, data.tags.length - 1);
     return data;
   }
 
@@ -66,7 +69,7 @@ class Controller {
     if (confirm('Are you sure you want to delete this contact?')) {
       await this.model.deleteContact(id);
       this.view.removeContactCard(id);
-    };
+    }
   }
 
   editContactFormHandler = async (id) => {
@@ -78,14 +81,16 @@ class Controller {
   addContactFormTags = async () => {
     let tags = await this.model.getAllTags();
     this.modalFormView.addContactFormTags(tags);
-    
   }
 
   filterContactsByTag = async (tag) => {
     let filteredContacts = await this.model.getContactsMatchingTag(tag);
     this.view.clearContactsList();
     this.view.displayContactsList(filteredContacts);
-    this.view.displayBanner(`Showing contacts with the tag "${tag}"`);
+    this.view.displayBanner({
+      message: 'Showing contacts with the tag ',
+      highlight: tag,
+    });
   }
 
   filterContactsBySearch = async (searchTerm) => {
@@ -93,7 +98,10 @@ class Controller {
     this.view.displayContactsList(matchingContacts);
 
     if (matchingContacts.length === 0) {
-      this.view.displayBanner(`There are no contacts starting with "${searchTerm}"`);
+      this.view.displayBanner({
+        message: 'There are no contacts matching ',
+        highlight: searchTerm,
+      });
     }
   }
 }

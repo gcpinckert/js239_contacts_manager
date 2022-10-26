@@ -17,21 +17,7 @@
     "id": 3,
     "full_name": "Pete Hanson",
     "email": "ph@example.com",
-    "phone_number": "54321098761",
+    "phone_number": "543-210-9876",
     "tags": null
-  },
-  {
-    "full_name": "Elvis",
-    "phone_number": "111-222-3344",
-    "email": "king@graceland.com",
-    "tags": "singer,historicalPerson",
-    "id": 4
-  },
-  {
-    "full_name": "Queen Victoria",
-    "phone_number": "123-456-1111",
-    "email": "regina@uk.com",
-    "tags": "historicalPerson",
-    "id": 5
   }
 ]

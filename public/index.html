@@ -42,13 +42,22 @@
     </script>
 
     <script id="tags-template" type="text/x-handlebars">
-      <select name="tags" id="tags" multiple>
-        <option value="" disabled>Please select tags</option>
+      <input type="text" name="tags" id="tags" readonly="readonly">
+      <ul class="tag-options tags-list">
         {{#each tags}}
-        <option value="{{this}}">{{this}}</option>
+        <li>{{this}}</li>
         {{/each}}
-        <option id="add-new-tag" disabled>+ Add new tag</option>
-      </select>
+        <li id="add-new-tag">+ Add new tag</li>
+        <li id="clear-tags">- Clear tags</li>
+      </ul>
+    </script>
+
+    <script id="banner-text-template" type="text/x-handlebars">
+      <p>{{message}}
+        {{#if highlight}}
+        <span class="highlight">{{highlight}}</span>
+        {{/if}}
+      </p>
     </script>
   </head>
 
@@ -64,7 +73,7 @@
     <main>
     <section class="contacts-list flex-container"></section>
     <div class="banner flex-container hidden">
-      <p id="banner-text"></p>
+      <div id="banner-text"></div>
       <a class="btn raised banner-btn">See All Contacts</a>
     </div>
     </main>
@@ -82,16 +91,19 @@
             <dd><input type="text" id="full_name" name="full_name" max-length="300" min-length="3" required="required"></dd>
             <dt><label for="email">Email:</label></dt>
             <dd><input type="email" id="email" name="email" required="required"></dd>
-            <dt><label for="phone_number">Phone Number:</label></dt>
+            <dt><label for="phone_number">Phone Number: xxx-xxx-xxx</label></dt>
             <dd><input type="tel" id="phone_number" name="phone_number" pattern="^(\d{10}|\d{3}-\d{3}-\d{4}|\(\d{3}\)\d{3}-\d{4})$" required="required"></dd>
-            <dt><label for="tags">Tags:</label></dt>
-            <dd id="select-tags"></dd>
+            <dt class="select-tags-btn">
+              <label for="tags">Select Tags</label>
+              <span class="dropdown">&#9660</span>
+            </dt>
+            <dd id="select-tags" class="super_hidden"></dd>
             <div id="new-tags-input" class="super_hidden">
-              <dd><label for="new_tag">Add a new tag:</label></dd>
-              <dt class="flex-container">
+              <dt><label for="new_tag">Add a new tag:</label></dt>
+              <dd class="flex-container">
                 <input type="text" id="new_tag" name="new_tag" pattern="^[a-zA-Z0-9]+$">
                 <button class="raised btn inline-btn">Add</button>
-              </dt>
+              </dd>
             </div>
           </dl>
           <input type="submit" value="Submit" class="btn raised">

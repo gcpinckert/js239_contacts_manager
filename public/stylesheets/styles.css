@@ -184,8 +184,14 @@ div.contact-btn-container a.delete-icon {
   margin-top: 50px;
 }
 
-p#banner-text {
+#banner-text p {
   font-size: 1.5rem;
+}
+
+#banner-text span {
+  font-size: 2rem;
+  font-weight: bold;
+  color:#B5BAA3;
 }
 
 /*------------ Modal Form (Add/Edit Contacts) Styling ------------*/
@@ -262,14 +268,29 @@ div.close-icon::after {
   margin: 30px 0px 10px 0px;
 }
 
+span.dropdown {
+  cursor: pointer;
+  color: #df9675;
+}
+
+ul.tag-options.tags-list {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  margin-top: 5px;
+  flex-wrap: wrap;
+}
+
 #new-tags-input dt {
   gap: 10px;
 }
 
-#add-new-tag {
+#add-new-tag,
+#clear-tags {
+  background-color: #BBCBD2;
   cursor: pointer;
 }
 
 .new-contact-form .btn.inline-btn {
-  margin: 0;
+  margin: 0 0 0 5px;
 }
