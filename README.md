@@ -4,9 +4,18 @@ Practice project for the JS239 take-home project assessment
 
 ## Contents
 
+- [Starting the app](#starting-the-app)
 - [Notes on Demo and required functionality](#demo-and-required-functionality)
 - [Basic Design Outline](#design-overview)
 - [To Do](#to-do)
+
+## Starting the App
+
+- Clone the repository
+- Navigate to root project folder
+- If you need to install dependencies, run `npm install`
+- To start the API server run `npm start`
+- In a browser, navigate to `http://localhost:3000`
 
 ## Demo and Required Functionality
 
