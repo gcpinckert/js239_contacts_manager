@@ -6,6 +6,7 @@ Practice project for the JS239 take-home project assessment
 
 - [Notes on Demo and required functionality](#demo-and-required-functionality)
 - [Basic Design Outline](#design-overview)
+- [To Do](#to-do)
 
 ## Demo and Required Functionality
 
@@ -77,7 +78,7 @@ Practice project for the JS239 take-home project assessment
 
 ### Known Bugs
 
-- There is a often a bt of a delay based on how often we are querying the database
+- There is a often a bt of a delay: ways to make things more efficient?
 
 ### Done
 

@@ -174,7 +174,6 @@ class ModalFormView extends View {
   removeTags = () => {
     this.tagsSelectContainer.innerHTML = '';
     this.tagsSelectContainer.classList.add('super_hidden');
-    //document.getElementById('add-new-tag').removeEventListener('click', this.addNewTagToSelect);
   }
 
   bindSubmitContactHandler(handler) {
