@@ -256,6 +256,14 @@ class ModalFormView extends View {
   clearTagsHandler = () => {
     document.getElementById('tags').value = '';
   }
+
+  bindEscKeyHandler = () => {
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        this.hideContactForm();
+      }
+    });
+  }
 }
 
 class SearchView extends View {
